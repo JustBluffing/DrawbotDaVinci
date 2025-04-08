@@ -1,42 +1,19 @@
 """
-Code for the physical movement of the robot. Test.
+This piece of code gets the motor to rotate smoothly. 12V and 1A limits.
 """
-from machine import Pin, Timer
-import utime
- 
-dir_pin = Pin(22, Pin.OUT)
-step_pin = Pin(21, Pin.OUT)
-steps_per_revolution = 200
- 
-# Initialize timer
-timer = Timer()
- 
-def step(t):
-    global step_pin
-    step_pin.value(not step_pin.value())
- 
-def rotate_motor(delay):
-    # Set up timer for stepping
-    timer.init(freq=1000000//delay, mode=Timer.PERIODIC, callback=step)
- 
-def loop():
-    while True:
-        # Set motor direction clockwise
-        dir_pin.value(1)
- 
-        # Spin motor slowly
-        rotate_motor(2000)
-        utime.sleep_ms(steps_per_revolution)
-        timer.deinit()  # stop the timer
-        utime.sleep(1)
- 
-        # Set motor direction counterclockwise
-        dir_pin.value(0)
- 
-        # Spin motor quickly
-        rotate_motor(1000)
-        utime.sleep_ms(steps_per_revolution)
-        timer.deinit()  # stop the timer
-        utime.sleep(1)
- 
-loop()
+
+from machine import Pin
+import time
+
+dir_pin = Pin(16, Pin.OUT)
+step_pin = Pin(17, Pin.OUT)
+
+def step_motor(steps, direction):
+    dir_pin.value(direction)
+    for step in range(steps):
+        step_pin.value(1)
+        time.sleep_us(1000)
+        step_pin.value(0)
+        time.sleep_us(1000)
+        
+step_motor(4000,0)
