@@ -4,8 +4,8 @@ Code for the physical movement of the robot. Test.
 from machine import Pin, Timer
 import utime
  
-dir_pin = Pin(20, Pin.OUT)
-step_pin = Pin(19, Pin.OUT)
+dir_pin = Pin(22, Pin.OUT)
+step_pin = Pin(21, Pin.OUT)
 steps_per_revolution = 200
  
 # Initialize timer
