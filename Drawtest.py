@@ -1,24 +1,30 @@
 from machine import Pin,PWM
 import time
-import threading
+import _thread
 
 servo_pin = Pin(15, Pin.OUT)
 dir_pin_x = Pin(16, Pin.OUT)
 step_pin_x = Pin(17, Pin.OUT)
 
+dir_pin_y = Pin(18, Pin.OUT)
+step_pin_y = Pin(19, Pin.OUT)
+
 step_multiplier = 1
-step_speed = 2000
+step_speed = 1000
 
 # Rotates the X-axis motor.
 # Time in microseconds.
-def step_x(steps, direction, time):
+def step_x(steps, direction, rotating_time):
     dir_pin_x.value(direction)
     for step in range(steps):
-        step_pin.value(not step_pin_x.value())
-        time.sleep_us(time)
+        step_pin_x.value(not step_pin_x.value())
+        time.sleep_us(rotating_time)
         
-def step_y(steps, direction, time):
-    pass
+def step_y(steps, direction, rotating_time):
+    dir_pin_y.value(direction)
+    for step in range(steps):
+        step_pin_y.value(not step_pin_y.value())
+        time.sleep_us(rotating_time)
 
 def lift_pen():
     servo = PWM(servo_pin)
@@ -68,20 +74,18 @@ def draw(start, end):
         
     if steps_x < steps_y:
         time_x = step_speed
-        time_y = step_speed*time_multiplier
+        time_y = int(step_speed*time_multiplier)
     else:
-        time_x = step_speed*time_multiplier
+        time_x = int(step_speed*time_multiplier)
         time_y = step_speed
         
-    
-    step_x = threading.Thread(target=step_x(steps_x, dir_x, time_x))
-    step_y = threading.Thread(target=step_y(steps_y, dir_y_, time_y))
-    
-    step_x.start()
-    step_y.start()
-
+    _thread.start_new_thread(step_y, (steps_y, dir_y, time_y))
+    step_x(steps_x, dir_x, time_x)
 
 
 def draw_test(start, end):
-    draw((100,100),(500,300))
-  
+    draw((100,100),(8000,8000))
+
+draw_test((100,100),(5000,3000))
+
+#step_x(5000, 1, 2000)
