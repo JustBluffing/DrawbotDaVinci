@@ -5,19 +5,19 @@ import _thread
 servo_pin = Pin(15, Pin.OUT)
 dir_pin_x = Pin(16, Pin.OUT)
 step_pin_x = Pin(17, Pin.OUT)
-#M0_pin_x = Pin(10, Pin.OUT)
-#M1_pin_x = Pin(11, Pin.OUT)
+M0_pin_x = Pin(10, Pin.OUT)
+M1_pin_x = Pin(11, Pin.OUT)
 dir_pin_y = Pin(18, Pin.OUT)
 step_pin_y = Pin(19, Pin.OUT)
-#M0_pin_y = Pin(12, Pin.OUT)
-#M1_pin_y = Pin(13, Pin.OUT)
+M0_pin_y = Pin(12, Pin.OUT)
+M1_pin_y = Pin(13, Pin.OUT)
 
 step_multiplier = 1
 step_speed = 1000
 
 # Set microstep mode
 # Could require different current settings?
-"""
+
 def set_step_mode(axis, mode):
     if axis == "x":
         M0 = M0_pin_x
@@ -25,22 +25,20 @@ def set_step_mode(axis, mode):
     else:
         M0 = M0_pin_y
         M1 = M1_pin_y
-    match mode:
-        case "full":
-            M0.value(0)
-            M1.value(0)
-        case "half":
-            M0.value(1)
-            M1.value(0)
-        case "quarter":
-            M0.value(0)
-            M1.value(1)
-        case "eighth":
-            M0.value(1)
-            M1.value(1)
+    if mode == "full":
+        M0.value(0)
+        M1.value(0)
+    elif mode == "half":
+        M0.value(1)
+        M1.value(0)
+    elif mode == "quarter":
+        M0.value(0)
+        M1.value(1)
+    elif mode == "eighth":
+        M0.value(1)
+        M1.value(1)
     print(f"Set mode for the {axis} axis motor to {mode}")
     
-"""
 
 # Rotates the X-axis motor.
 # Time in microseconds.
@@ -133,8 +131,10 @@ def draw(start, end):
 
 
 def draw_test(start, end):
-    draw((100,100),(8000,8000))
+    draw((100,100),(end))
 
-draw_test((100,100),(5000,3000))
+set_step_mode("x", "quarter")
+set_step_mode("y", "eighth")
+draw_test((100,100),(3000,3000))
 
 #step_x(5000, 1, 2000)
