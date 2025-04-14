@@ -57,15 +57,15 @@ def step_y(steps, direction, rotating_time):
 def lift_pen():
     servo = PWM(servo_pin)
     servo.freq(50)
-    lift_angle = 70
-    write_val = 6400/180*angle + 1900
+    lift_angle = 50
+    write_val = 6400/180*lift_angle + 1900
     servo.duty_u16(int(write_val))
     
 def set_pen():
     servo = PWM(servo_pin)
     servo.freq(50)
-    lift_angle = 80
-    write_val = 6400/180*angle + 1900
+    lift_angle = 70
+    write_val = 6400/180*lift_angle + 1900
     servo.duty_u16(int(write_val))
     
 # Saves the location of the pen.
@@ -116,25 +116,28 @@ def draw(start, end):
         dir_y = 1
         
     if steps_x < steps_y:
-        time_x = step_speed
-        time_y = int(step_speed*time_multiplier)
+        speed_x = step_speed
+        speed_y = int(step_speed*time_multiplier)
     else:
-        time_x = int(step_speed*time_multiplier)
-        time_y = step_speed
+        speed_x = int(step_speed*time_multiplier)
+        speed_y = step_speed
 
-    # Expect something befofe setting global variable?
-    _thread.start_new_thread(step_y, (steps_y, dir_y, time_y))
-    step_x(steps_x, dir_x, time_x)
+    # Expect something before setting global variable?
+    print(f"Rotating x axis motor at speed {speed_x} µs/step into direction {dir_x} for {steps_x} steps")
+    print(f"Rotating y axis motor at speed {speed_y} µs/step into direction {dir_y} for {steps_y} steps")
+    _thread.start_new_thread(step_y, (steps_y, dir_y, speed_y))
+    step_x(steps_x, dir_x, speed_x)
     
     global pen_location
     pen_location = end
 
 
 def draw_test(start, end):
-    draw((100,100),(end))
+    set_step_mode("x", "full")
+    set_step_mode("y", "full")
+    draw(start,end)
 
-set_step_mode("x", "quarter")
-set_step_mode("y", "eighth")
-draw_test((100,100),(3000,3000))
+draw_test((0,0),(1500,2000))
+#set_pen()
 
 #step_x(5000, 1, 2000)
