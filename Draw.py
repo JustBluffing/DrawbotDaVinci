@@ -5,12 +5,42 @@ import _thread
 servo_pin = Pin(15, Pin.OUT)
 dir_pin_x = Pin(16, Pin.OUT)
 step_pin_x = Pin(17, Pin.OUT)
-
+#M0_pin_x = Pin(10, Pin.OUT)
+#M1_pin_x = Pin(11, Pin.OUT)
 dir_pin_y = Pin(18, Pin.OUT)
 step_pin_y = Pin(19, Pin.OUT)
+#M0_pin_y = Pin(12, Pin.OUT)
+#M1_pin_y = Pin(13, Pin.OUT)
 
 step_multiplier = 1
 step_speed = 1000
+
+# Set microstep mode
+# Could require different current settings?
+"""
+def set_step_mode(axis, mode):
+    if axis == "x":
+        M0 = M0_pin_x
+        M1 = M1_pin_x
+    else:
+        M0 = M0_pin_y
+        M1 = M1_pin_y
+    match mode:
+        case "full":
+            M0.value(0)
+            M1.value(0)
+        case "half":
+            M0.value(1)
+            M1.value(0)
+        case "quarter":
+            M0.value(0)
+            M1.value(1)
+        case "eighth":
+            M0.value(1)
+            M1.value(1)
+    print(f"Set mode for the {axis} axis motor to {mode}")
+    
+"""
 
 # Rotates the X-axis motor.
 # Time in microseconds.
@@ -39,6 +69,21 @@ def set_pen():
     lift_angle = 80
     write_val = 6400/180*angle + 1900
     servo.duty_u16(int(write_val))
+    
+# Saves the location of the pen.
+# Coordinates as a tuple (x, y)
+def save_pen_location(coordinates):
+    # Binary file faster if more locations
+    pen_data = open("pen_data.txt", "w")
+    pen_data.write(str(coordinates))
+    pen_data.close()
+    
+def read_pen_location():
+    pen_data = open("pen_data.txt")
+    pen_location_str = pen_data.read()
+    pen_location = tuple(map(int, pen_location_str.strip("()").split(",")))
+    pen_data.close()
+    return pen_location
     
 # Calculates the amount of steps for each axis.
 # start and end are tuples of x and y coordinates.
@@ -78,9 +123,12 @@ def draw(start, end):
     else:
         time_x = int(step_speed*time_multiplier)
         time_y = step_speed
-        
+
+    # Expect something befofe setting global variable?
     _thread.start_new_thread(step_y, (steps_y, dir_y, time_y))
     step_x(steps_x, dir_x, time_x)
+    
+    global pen_location = end
 
 
 def draw_test(start, end):
