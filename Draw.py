@@ -128,7 +128,8 @@ def draw(start, end):
     _thread.start_new_thread(step_y, (steps_y, dir_y, time_y))
     step_x(steps_x, dir_x, time_x)
     
-    global pen_location = end
+    global pen_location
+    pen_location = end
 
 
 def draw_test(start, end):
