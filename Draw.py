@@ -133,11 +133,11 @@ def draw(start, end):
 
 
 def draw_test(start, end):
-    set_step_mode("x", "full")
-    set_step_mode("y", "full")
+    set_step_mode("x", "eighth")
+    set_step_mode("y", "eighth")
     draw(start,end)
 
-draw_test((0,0),(1500,2000))
+draw_test((0,0),(2000,4000))
 #set_pen()
 
 #step_x(5000, 1, 2000)
