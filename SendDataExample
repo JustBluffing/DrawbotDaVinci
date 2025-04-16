@@ -1,0 +1,20 @@
+# Python3 file if cv2 doesn't work on micropython
+
+import cv2
+import serial
+
+# Initialize serial communication
+ser = serial.Serial('COM3', 115200)  # Adjust the port as needed
+
+# Load an image
+img = cv2.imread('path/to/image.jpg')
+
+# Process the image (example: convert to grayscale)
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Send commands to Pico based on image processing
+for i in range(gray.shape[0]):
+    for j in range(gray.shape[1]):
+        if gray[i, j] > 128:  # Example condition
+            command = f'MOVE {i} {j}\n'  # Send command with arguments
+            ser.write(command.encode())
