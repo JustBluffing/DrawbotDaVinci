@@ -15,6 +15,9 @@ M1_pin_y = Pin(13, Pin.OUT)
 step_multiplier = 1
 step_speed = 1000
 
+# Maximum amount of steps before the edge of the paper is reached. Test and find.
+boundaries = (30000, 35000)
+
 # Set microstep mode
 # Could require different current settings?
 
@@ -99,9 +102,23 @@ def calculate_time_multiplier(steps_x, steps_y):
     step_time_multiplier = min(steps_x,steps_y)/max(steps_x,steps_y)
     return step_time_multiplier
 
+# Checks if the given coordinates are within the boundaries.
+# Returns True if yes, False if not.
+def is_within_bounds(coordinates):
+    if coordinates[0] <= boundaries[0] and coordinates[1] <= boundaries[1]:
+        return True
+    else:
+        # TODO: Stop if return false
+        return False
+
 # Draws a line from starting coordinates to end.
 # Coordinates as a tuple.
 def draw(start, end):
+    if not is_within_bounds(end):
+        print(f"Out of bounds error! {end} not within set boundaries.")
+        # TODO: 
+        return False
+        
     steps_x,steps_y = calculate_steps(start, end)
     time_multiplier = calculate_time_multiplier(steps_x, steps_y)
     
@@ -130,6 +147,8 @@ def draw(start, end):
     
     global pen_location
     pen_location = end
+    
+    return True
 
 
 def draw_test(start, end):
