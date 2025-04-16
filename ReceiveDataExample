@@ -1,0 +1,21 @@
+# Add this code to draw code if required
+
+import machine
+import uos
+
+uart = machine.UART(0, baudrate=115200)
+uos.dupterm(uart)
+
+# Example function to control a drawing machine with arguments
+def move(x, y):
+    # Code to move the drawing machine to position (x, y)
+    print(f"Moving the drawing machine to ({x}, {y})")
+
+while True:
+    if uart.any():
+        command = uart.read().decode().strip()
+        parts = command.split()
+        if parts[0] == 'DRAW' and len(parts) == 3:
+            x = int(parts[1])
+            y = int(parts[2])
+            draw(currentlocationthereasatuple, (x, y))
