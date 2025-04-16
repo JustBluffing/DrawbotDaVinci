@@ -1,5 +1,1 @@
-1. Do something
-2. Do something else as well
-3. Find libraries
-4. Code the program that turns code into coordinates
-5. Make a better todo-list
+1. pip install opencv-python / manage packages -> install
