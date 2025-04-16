@@ -16,5 +16,5 @@ gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 for i in range(gray.shape[0]):
     for j in range(gray.shape[1]):
         if gray[i, j] > 128:  # Example condition
-            command = f'MOVE {i} {j}\n'  # Send command with arguments
+            command = f'DRAW {i} {j}\n'  # Send command with arguments
             ser.write(command.encode())
