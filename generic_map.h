@@ -1,3 +1,4 @@
+
 /*
   generic_map.h - driver code for RP2040 ARM processors
 
@@ -39,8 +40,11 @@
 // Define step direction output pins.
 #define DIRECTION_PORT          GPIO_OUTPUT
 #define X_DIRECTION_PIN         16
+#define X_DIRECTION_BIT         (1<<X_DIRECTION_PIN)
 #define Y_DIRECTION_PIN         18
-#define Z_DIRECTION_PIN         7
+#define Y_DIRECTION_BIT         (1<<Y_DIRECTION_PIN)
+#define Z_DIRECTION_PIN         26
+#define Z_DIRECTION_BIT         (1<<Z_DIRECTION_PIN)
 #define DIRECTION_OUTMODE       GPIO_SHIFT5
 
 // Define stepper driver enable/disable output pin.
@@ -60,21 +64,15 @@
 
 #define AUXOUTPUT0_PORT         GPIO_OUTPUT
 #define AUXOUTPUT0_PIN          10
-#if I2C_ENABLE
-#define I2C_PORT                1
-#define I2C_SDA                 26
-#define I2C_SCL                 27
-#else
 #define AUXOUTPUT1_PORT         GPIO_OUTPUT
 #define AUXOUTPUT1_PIN          11
 #define AUXOUTPUT2_PORT         GPIO_OUTPUT
 #define AUXOUTPUT2_PIN          12
-#endif
-#define AUXOUTPUT3_PORT         GPIO_OUTPUT // Spindle PWM
+#define AUXOUTPUT3_PORT         GPIO_OUTPUT
 #define AUXOUTPUT3_PIN          13
-#define AUXOUTPUT4_PORT         GPIO_OUTPUT // Spindle direction
+#define AUXOUTPUT4_PORT         GPIO_OUTPUT
 #define AUXOUTPUT4_PIN          14
-#define AUXOUTPUT5_PORT         GPIO_OUTPUT // Spindle enable
+#define AUXOUTPUT5_PORT         GPIO_OUTPUT
 #define AUXOUTPUT5_PIN          15   
 #define AUXOUTPUT6_PORT         GPIO_OUTPUT // Coolant flood
 #define AUXOUTPUT6_PIN          20   
