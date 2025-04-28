@@ -39,11 +39,11 @@
 
 // Define step direction output pins.
 #define DIRECTION_PORT          GPIO_OUTPUT
-#define X_DIRECTION_PIN         16
+#define X_DIRECTION_PIN         13
 #define X_DIRECTION_BIT         (1<<X_DIRECTION_PIN)
-#define Y_DIRECTION_PIN         18
+#define Y_DIRECTION_PIN         12
 #define Y_DIRECTION_BIT         (1<<Y_DIRECTION_PIN)
-#define Z_DIRECTION_PIN         26
+#define Z_DIRECTION_PIN         15
 #define Z_DIRECTION_BIT         (1<<Z_DIRECTION_PIN)
 #define DIRECTION_OUTMODE       GPIO_SHIFT5
 
@@ -67,13 +67,13 @@
 #define AUXOUTPUT1_PORT         GPIO_OUTPUT
 #define AUXOUTPUT1_PIN          11
 #define AUXOUTPUT2_PORT         GPIO_OUTPUT
-#define AUXOUTPUT2_PIN          12
+#define AUXOUTPUT2_PIN          26
 #define AUXOUTPUT3_PORT         GPIO_OUTPUT
-#define AUXOUTPUT3_PIN          13
+#define AUXOUTPUT3_PIN          26
 #define AUXOUTPUT4_PORT         GPIO_OUTPUT
-#define AUXOUTPUT4_PIN          14
+#define AUXOUTPUT4_PIN          26
 #define AUXOUTPUT5_PORT         GPIO_OUTPUT
-#define AUXOUTPUT5_PIN          15   
+#define AUXOUTPUT5_PIN          16  
 #define AUXOUTPUT6_PORT         GPIO_OUTPUT // Coolant flood
 #define AUXOUTPUT6_PIN          20   
 #define AUXOUTPUT7_PORT         GPIO_OUTPUT // Coolant mist
@@ -88,13 +88,13 @@
 #define SPINDLE_PORT            GPIO_OUTPUT
 #endif
 #if DRIVER_SPINDLE_ENABLE & SPINDLE_PWM
-#define SPINDLE_PWM_PIN         AUXOUTPUT3_PIN
+#define SPINDLE_PWM_PIN         AUXOUTPUT5_PIN
 #endif
 #if DRIVER_SPINDLE_ENABLE & SPINDLE_DIR
 #define SPINDLE_DIRECTION_PIN   AUXOUTPUT4_PIN
 #endif
 #if DRIVER_SPINDLE_ENABLE & SPINDLE_ENA   
-#define SPINDLE_ENABLE_PIN      AUXOUTPUT5_PIN
+#define SPINDLE_ENABLE_PIN      AUXOUTPUT6_PIN
 #endif
 
 // Define flood and mist coolant enable output pins.
