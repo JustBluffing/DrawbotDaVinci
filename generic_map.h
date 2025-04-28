@@ -43,7 +43,7 @@
 #define X_DIRECTION_BIT         (1<<X_DIRECTION_PIN)
 #define Y_DIRECTION_PIN         12
 #define Y_DIRECTION_BIT         (1<<Y_DIRECTION_PIN)
-#define Z_DIRECTION_PIN         15
+#define Z_DIRECTION_PIN         26
 #define Z_DIRECTION_BIT         (1<<Z_DIRECTION_PIN)
 #define DIRECTION_OUTMODE       GPIO_SHIFT5
 
@@ -80,6 +80,7 @@
 #define AUXOUTPUT7_PIN          17   
 
 // servo controls
+#define HAS_IOPORTS
 #define SERVO
 #define AUXOUTPUT0_PWM_PORT GPIO_OUTPUT
 #define AUXOUTPUT0_PWM_PIN 15
