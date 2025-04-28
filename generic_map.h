@@ -67,6 +67,17 @@
 #define AUXOUTPUT1_PORT         GPIO_OUTPUT
 #define AUXOUTPUT1_PIN          11
 #define AUXOUTPUT2_PORT         GPIO_OUTPUT
+#define AUXOUTPUT2_PIN          26
+#define AUXOUTPUT3_PORT         GPIO_OUTPUT
+#define AUXOUTPUT3_PIN          26
+#define AUXOUTPUT4_PORT         GPIO_OUTPUT
+#define AUXOUTPUT4_PIN          26
+#define AUXOUTPUT5_PORT         GPIO_OUTPUT
+#define AUXOUTPUT5_PIN          26
+#define AUXOUTPUT6_PORT         GPIO_OUTPUT // Coolant flood
+#define AUXOUTPUT6_PIN          20   
+#define AUXOUTPUT7_PORT         GPIO_OUTPUT // Coolant mist
+#define AUXOUTPUT7_PIN          17   
 
 // servo controls
 #define SERVO
