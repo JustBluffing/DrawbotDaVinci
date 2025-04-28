@@ -43,7 +43,7 @@
 #define X_DIRECTION_BIT         (1<<X_DIRECTION_PIN)
 #define Y_DIRECTION_PIN         12
 #define Y_DIRECTION_BIT         (1<<Y_DIRECTION_PIN)
-#define Z_DIRECTION_PIN         15
+#define Z_DIRECTION_PIN         26
 #define Z_DIRECTION_BIT         (1<<Z_DIRECTION_PIN)
 #define DIRECTION_OUTMODE       GPIO_SHIFT5
 
@@ -67,7 +67,7 @@
 #define AUXOUTPUT1_PORT         GPIO_OUTPUT
 #define AUXOUTPUT1_PIN          11
 #define AUXOUTPUT2_PORT         GPIO_OUTPUT
-#define AUXOUTPUT2_PIN          26
+#define AUXOUTPUT2_PIN          15
 #define AUXOUTPUT3_PORT         GPIO_OUTPUT
 #define AUXOUTPUT3_PIN          26
 #define AUXOUTPUT4_PORT         GPIO_OUTPUT
