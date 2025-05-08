@@ -1,0 +1,12 @@
+{
+  // Kun avaat projektin, CMake-konffaus käynnistyy automaattisesti
+  "cmake.configureOnOpen": true,
+
+  // Asetetaan ADD_SERVO-optio cacheen
+  "cmake.configureSettings": {
+    "ADD_SERVO": "ON"
+  },
+
+  // (Vapaaehtoinen) Mihin build-hakemisto generoidaan
+  "cmake.buildDirectory": "${workspaceFolder}/build"
+}
