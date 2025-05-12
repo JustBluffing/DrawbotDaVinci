@@ -33,9 +33,9 @@ void board_init (void)
 
 #if PWM_SERVO_ENABLE
     {
-        // Looginen Port_Analog‐portti 0
+        // Logical Port_Analog port 0
         uint8_t servo_port = 0;  
-        // Kerrotaan GRBLHAL:lle että port 0 on ulostulo
+        // Tell grblHAL that port 0 is an output
         ioport_claim(Port_Analog, Port_Output, &servo_port, "PWM Servo");
 
     }
@@ -61,8 +61,8 @@ void board_init (void)
      pwm_init(slice, &cfg, true);
  #endif  // PWM_SERVO_ENABLE
  
-     // Jos tarvitset muita IO-portteja (esim. steppi-, suunta- yms.),
-     // ne claimataan tässä board_init():ssä kuten ennenkin.
+    // If you need other I/O ports (e.g. step, direction, etc.),
+    // they are claimed here in board_init() as before.
  }
  
  #endif // defined(BOARD_PICO_CNC)
