@@ -38,3 +38,6 @@ You need to overwrite the following files found in DrawbotDaVinci/modifiedRO2040
 to .vscode subfolder in RP2040.  
 
 After that you can use Visual Studio Code to cofigure and build new .uf2 files using CMake. 
+
+
+Latest working firmware is the grblHAL.uf2 file found in the main page of DrawbotDaVinci
