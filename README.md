@@ -41,3 +41,32 @@ After that you can use Visual Studio Code to cofigure and build new .uf2 files u
 
 
 Latest working firmware is the grblHAL.uf2 file found in the main page of DrawbotDaVinci
+
+
+
+
+Images to gcode
+
+## Software options
+
+1. Inkscape
+   Download Inkscape https://inkscape.org
+   Gcodetools extension
+      https://github.com/kliment/gcodetools
+      
+      Copy the gcodetools folder (and its .inx/.py files) into the extensions directory
+(C:\ProgramFiles\Inkscape\share\extensions)
+
+   Tutorial on how to use gcodetools extension
+   https://www.youtube.com/watch?v=6b_XMrfLMc0
+
+
+
+
+
+Transferring gcode to the machine
+
+Download Universal Gcode Sender https://winder.github.io/ugs_website/
+
+
+
