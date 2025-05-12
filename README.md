@@ -1,72 +1,85 @@
-This repository contains configuration and build instructions for compiling **grblHAL** for the RP2040 (Raspberry Pi Pico) using ARM GCC, CMake, and Ninja, and producing `.uf2` firmware images.
+grblHAL RP2040 Firmware Build Instructions
 
+This repository contains configuration and build instructions for compiling grblHAL for the RP2040 (Raspberry Pi Pico) using ARM GCC, CMake, and Ninja, producing .uf2 firmware images.
 
----
-## Prerequisites 
-1. ARM GCC Toolchain
-   Download and install [ARM GNU Toolchain](https://developer.arm.com/downloads/-/arm-gnu-toolchain-downloads) (e.g. `arm-none-eabi-gcc`)
-2. CMake
-   Install via your package manager or from https://cmake.org/download/
-3. Ninja
-   Install via your package manager or from https://ninja-build.org/.  
-4. Pico SDK
-```bash
-   cd ~
-   git clone https://github.com/raspberrypi/pico-sdk.git
-   cd pico-sdk
-   git checkout sdk-<version>  # e.g. sdk-1.5.0
+Prerequisites
 
----
+ARM GCC Toolchain
 
-## Environment Setup
+Download and install ARM GNU Toolchain (e.g., arm-none-eabi-gcc).
 
-Add these to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.):
+CMake
 
-```bash
+Install via your package manager or from cmake.org.
+
+Ninja
+
+Install via your package manager or from ninja-build.org.
+
+Pico SDK
+
+cd ~
+git clone https://github.com/raspberrypi/pico-sdk.git
+cd pico-sdk
+git checkout sdk-<version>  # e.g. sdk-1.5.0
+
+Environment Setup
+
+Add the following to your shell profile (~/.bashrc, ~/.zshrc, etc.):
+
 export PICO_SDK_PATH=~/pico-sdk
 export PATH="$PATH:/path/to/arm-none-eabi/bin"
 
+Building grblHAL for RP2040
 
-## grblHAL RP2040
-
-Clone grblHAL RP2040
+Clone the Repository
 
 git clone https://github.com/<your-org>/grblHAL-rp2040.git
 cd grblHAL-rp2040
 
-You need to overwrite the following files found in DrawbotDaVinci/modifiedRO2040files from the RP2040. Additionally you have to create settings.json file
-to .vscode subfolder in RP2040.  
+Prepare Custom Files
 
-After that you can use Visual Studio Code to cofigure and build new .uf2 files using CMake. 
+Overwrite the files in DrawbotDaVinci/modifiedRP2040files with the versions from your RP2040 board.
 
+Create a settings.json file inside .vscode/ in the grblHAL-rp2040 directory.
 
-Latest working firmware is the grblHAL.uf2 file found in the main page of DrawbotDaVinci
+Configure & Build
 
+Open the project in Visual Studio Code.
 
+Use the CMake Tools extension to configure and select a build folder.
 
+Click Build to generate the .uf2 firmware image.
 
-Images to gcode
+Note: The latest working firmware (grblHAL.uf2) is available on the main page of the DrawbotDaVinci repository.
 
-## Software options
+Generating G-code from Images
 
-1. Inkscape
-   Download Inkscape https://inkscape.org
-   Gcodetools extension
-      https://github.com/kliment/gcodetools
-      
-      Copy the gcodetools folder (and its .inx/.py files) into the extensions directory
-(C:\ProgramFiles\Inkscape\share\extensions)
+Inkscape + Gcodetools
 
-   Tutorial on how to use gcodetools extension
-   https://www.youtube.com/watch?v=6b_XMrfLMc0
+Install Inkscape
 
+Download: https://inkscape.org
 
+Add Gcodetools Extension
 
+# Download the extension
+git clone https://github.com/kliment/gcodetools
 
+# Copy the folder (and its .inx/.py files) into:
+C:\Program Files\Inkscape\share\extensions
 
-Transferring gcode to the machine
+Tutorial
 
-Download Universal Gcode Sender https://winder.github.io/ugs_website/
+Watch: https://www.youtube.com/watch?v=6b_XMrfLMc0
 
+Transferring G-code to the Machine
 
+Universal Gcode Sender
+
+Download: https://winder.github.io/ugs_website/
+
+Connect & Send
+
+Open UGS, connect to your CNC device, and load the generated .gcode file.
 
