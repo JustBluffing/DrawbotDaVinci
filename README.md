@@ -60,6 +60,8 @@ Note: The latest working firmware (grblHAL.uf2) is available on the main page of
 
 ## Generating G-code from Images
 
+img2gcode python file using potrace, ffmpeg, imagemagick (and autotrace)
+or alternatively
 Inkscape + Gcodetools
 
 ## Install Inkscape
@@ -84,7 +86,20 @@ Transferring G-code to the Machine
 
 Download: https://winder.github.io/ugs_website/
 
-Connect & Send
+Connect & Set up (first time onely)
 
-Open UGS, connect to your CNC device, and load the generated .gcode file.
+Open UGS, connect the device using setup wizard.
+On the calibration screen of setup wizard, set steps per millimeter
+X: 41.667
+Y: 43.448
+Z: Any, not used
+(Measured with a ruler, possibly off by half a millimeter)
+
+Enabling microstepping:
+Run the command
+M64 P0 M64 P1 M64 P2 M64 P3
+The modified img2gcode adds this line to the beginning automatically.
+
+
+Load the generated .gcode file.
 
