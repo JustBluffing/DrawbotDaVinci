@@ -79,7 +79,7 @@
 #define HAS_IOPORTS
 #define SERVO
 
-// Tämä aktivoi pwm_servo_m280.c:n:
+// This activates pwm_servo_m280.c:
 #define PWM_SERVO_ENABLE   1
 #define N_PWM_SERVOS       1
 
