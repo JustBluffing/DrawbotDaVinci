@@ -62,16 +62,16 @@ Note: The latest working firmware (grblHAL.uf2) is available on the main page of
 
 Inkscape + Gcodetools
 
-# Install Inkscape
+## Install Inkscape
 
 Download: https://inkscape.org
 
 Add Gcodetools Extension
 
-# Download the extension
+### Download the extension
 git clone https://github.com/kliment/gcodetools
 
-# Copy the folder (and its .inx/.py files) into:
+### Copy the folder (and its .inx/.py files) into:
 C:\Program Files\Inkscape\share\extensions
 
 Tutorial
@@ -80,7 +80,7 @@ Watch: https://www.youtube.com/watch?v=6b_XMrfLMc0
 
 Transferring G-code to the Machine
 
-# Universal Gcode Sender
+## Universal Gcode Sender
 
 Download: https://winder.github.io/ugs_website/
 
