@@ -14,7 +14,7 @@ endif()
 # ====================================================================================
 cmake_minimum_required(VERSION 3.13)
 
-# Lisäpluginit
+# Additional plugins
 option(ADD_HPGL       "Add HPGL plugin"               OFF)
 option(ADD_WIFI       "Add WiFi networking"          OFF)
 option(ADD_ETHERNET   "Add Ethernet networking"      OFF)
@@ -28,7 +28,7 @@ set(PICO_BOARD pico CACHE STRING "Board type")
 
 include(pico_sdk_import.cmake)
 
-# Verkko‐pluginien esivalmistelut
+# Network plugin preparations
 if(ADD_WIFI OR ADD_ETHERNET)
     include(networking/CMakeLists.txt)
     include(webui/CMakeLists.txt)
@@ -38,7 +38,7 @@ if(ADD_WIFI OR ADD_ETHERNET)
     endif()
 endif()
 
-# Vakio‐pluginien includet
+# Standard plugin includes
 include(grbl/CMakeLists.txt)
 include(fatfs/CMakeLists.txt)
 include(motors/CMakeLists.txt)
@@ -60,7 +60,7 @@ endif()
 project(grblHAL)
 pico_sdk_init()
 
-# 1) Luo grblHAL‐suoritettava vain kerran
+# Create grblHAL executable only once
 add_executable(grblHAL
     main.c
     driver.c
@@ -81,7 +81,7 @@ add_executable(grblHAL
     littlefs_hal.c
 )
 
-# 2) Jos halutaan mukaan PWM‐servo (M280)
+# If PWM-servo (M280) should be included
 if(ADD_SERVO)
     message(STATUS ">>> PWM_SERVO_M280 plugin INCLUDED <<<")
     # Kerro koodille, että PWM_SERVO_M280‐ominaisuus on päällä
@@ -90,10 +90,10 @@ if(ADD_SERVO)
     target_sources(grblHAL PRIVATE plugins/pwm_servo_m280.c)
 endif()
 
-# 3) Jäljelle jäävät käännös‐ ja generointikutsut
+# Remaining compile and generation calls
 pico_generate_pio_header(grblHAL ${CMAKE_CURRENT_LIST_DIR}/driverPIO.pio)
 
-# RP2040‐ajurit
+# RP2040 drivers
 if(PICO_BOARD STREQUAL "pico" OR PICO_BOARD STREQUAL "pico_w")
     target_compile_definitions(grblHAL PUBLIC RP_MCU=2040)
     if(PICO_SDK_VERSION_STRING VERSION_GREATER_EQUAL "2.1.1")
@@ -104,7 +104,7 @@ else()
 endif()
 target_compile_definitions(grblHAL PUBLIC RP2040 NEW_FATFS)
 
-# Verkko‐ja Bluetooth‐linkitykset (jos päällä)
+# Network and Bluetooth linkages (if enabled)
 if(ADD_WIFI)
     target_compile_definitions(grblHAL PUBLIC WIFI_ENABLE=1 NDEBUG)
     target_sources(grblHAL PRIVATE wifi.c dhcpserver.c)
@@ -140,7 +140,7 @@ if(ADD_BLUETOOTH)
     endif()
 endif()
 
-# Linkit ja loput
+# Links and the rest
 target_include_directories(grblHAL PRIVATE ${CMAKE_CURRENT_LIST_DIR})
 target_link_libraries(grblHAL PRIVATE
     grbl fatfs sdcard motors trinamic spindle keypad fans laser bluetooth 
@@ -150,7 +150,7 @@ target_link_libraries(grblHAL PRIVATE
 )
 pico_add_extra_outputs(grblHAL)
 
-# Puhdistetaan cache‐muuttujat
+# Clean up cache variables
 unset(PICO_BOARD CACHE)
 unset(ADD_WIFI CACHE)
 unset(ADD_ETHERNET CACHE)
