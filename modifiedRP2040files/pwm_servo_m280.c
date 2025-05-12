@@ -24,8 +24,8 @@
 #include "grbl/ioports.h"
 
 #define SERVO_GPIO_PIN      15
-#define SERVO_PWM_WRAP      10000u    // PWM-tasot: 0…10000
-#define SERVO_PWM_FREQ_HZ   50.0f     // Haluttu taajuus
+#define SERVO_PWM_WRAP      10000u    // PWM-levels: 0…10000
+#define SERVO_PWM_FREQ_HZ   50.0f     // Desired frequency
 
 #ifndef N_PWM_SERVOS
 #define N_PWM_SERVOS 1
@@ -48,7 +48,7 @@ static on_report_options_ptr on_report_options;
 static uint8_t             n_servos = 0;
 static servo_t             servos[N_PWM_SERVOS];
 
-// Asetetaan servolle kulma asteina → PWM-taso
+// Set servo angle in degrees -> PWM level
 static bool pwm_servo_set_angle(uint8_t servo, float angle)
 {
     if(servo >= n_servos) return false;
@@ -81,7 +81,7 @@ static status_code_t mcode_validate(parser_block_t *gc_block)
         return user_mcode.validate ? user_mcode.validate(gc_block)
                                    : Status_Unhandled;
 
-    // P- ja S-sanat tarkistelu
+    // Validate P- and S-words
     if(gc_block->words.p && (!isintf(gc_block->values.p)
        || (uint8_t)gc_block->values.p >= n_servos))
         return Status_GcodeValueOutOfRange;
@@ -94,7 +94,7 @@ static status_code_t mcode_validate(parser_block_t *gc_block)
             return Status_GcodeValueOutOfRange;
     }
 
-    // syöte hyväksytty
+    // Input accepted
     gc_block->words.p = gc_block->words.s = Off;
     return Status_OK;
 }
@@ -110,7 +110,7 @@ static void mcode_execute(uint_fast16_t state, parser_block_t *gc_block)
     if(gc_block->words.s) {
         pwm_servo_set_angle(id, gc_block->values.s);
     } else {
-        // raportoi
+        // Report
         char buf[64];
         float v = pwm_servo_get_angle(id);
         snprintf(buf, sizeof(buf), "[Servo %u position: %.2f degrees]" ASCII_EOL, id, v);
@@ -126,24 +126,24 @@ static void onReportOptions(bool newopt)
 
 void pwm_servo_init(void)
 {
-    // kopioidaan alkuperäiset callbackit talteen
+    // Copy original callbacks 
     memcpy(&user_mcode, &grbl.user_mcode, sizeof(user_mcode_ptrs_t));
-    // korvataan ne omilla
+    // Replace with our own
     grbl.user_mcode.check    = mcode_check;
     grbl.user_mcode.validate = mcode_validate;
     grbl.user_mcode.execute  = mcode_execute;
-    // tägätään plugin–raportointi
+    // Tag plugin reporting
     on_report_options = grbl.on_report_options;
     grbl.on_report_options = onReportOptions;
 
-    // Alustetaan servotiedot
+    // Initialize servo data
     n_servos = N_PWM_SERVOS;
     for(uint8_t i = 0; i < n_servos; i++) {
         servos[i].min_angle = DEFAULT_MIN_ANGLE;
         servos[i].max_angle = DEFAULT_MAX_ANGLE;
         servos[i].angle     = 0.0f;
     }
-// --- Konfiguroidaan GPIO15 hardware-PWM 50 Hz ---
+// --- Configure GPIO15 as hardware-PWM 50 Hz ---
 gpio_set_function(SERVO_GPIO_PIN, GPIO_FUNC_PWM); {
     uint slice = pwm_gpio_to_slice_num(SERVO_GPIO_PIN);
     pwm_config cfg = pwm_get_default_config();
