@@ -67,7 +67,11 @@ Note: The latest working firmware (grblHAL.uf2) is available on the main page of
 
 img2gcode python file using potrace, ffmpeg, imagemagick (and autotrace)
 Install the required programs following https://github.com/schollz/img2gcode
+Use the modified img2gcode file from this project's files
+Example commands for img2gcode when the image is placed in the same folder:
+
 python img2gcode.py --file imagefilename.png --animate --simplify 1 --threshold 42
+python img2gcode.py --file imagefilename.png --animate --simplify 3 --threshold 8
 
 or alternatively
 Inkscape + Gcodetools
