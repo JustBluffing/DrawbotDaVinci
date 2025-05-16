@@ -1,3 +1,8 @@
+# Components and connections
+https://wokwi.com/projects/430691449936658433
+![image](https://github.com/user-attachments/assets/e346eb71-61cd-4bca-bb4c-4cc91bfd2d34)
+
+
 # grblHAL RP2040 Firmware Build Instructions
 
 This repository contains configuration and build instructions for compiling **grblHAL** for the RP2040 (Raspberry Pi Pico) using ARM GCC, CMake, and Ninja, producing .uf2 firmware images.
@@ -61,6 +66,9 @@ Note: The latest working firmware (grblHAL.uf2) is available on the main page of
 ## Generating G-code from Images
 
 img2gcode python file using potrace, ffmpeg, imagemagick (and autotrace)
+Install the required programs following https://github.com/schollz/img2gcode
+python img2gcode.py --file imagefilename.png --animate --simplify 1 --threshold 42
+
 or alternatively
 Inkscape + Gcodetools
 
@@ -96,7 +104,7 @@ Z: Any, not used
 (Measured with a ruler, possibly off by half a millimeter)
 
 Enabling microstepping:
-Run the command
+Run the command (or add it to the beginnig of the code)
 M64 P0 M64 P1 M64 P2 M64 P3
 The modified img2gcode adds this line to the beginning automatically.
 
