@@ -101,11 +101,14 @@ Download: https://winder.github.io/ugs_website/
 Connect & Set up (first time onely)
 
 Open UGS, connect the device using setup wizard.
-On the calibration screen of setup wizard, set steps per millimeter
+On the calibration screen of setup wizard, set steps per millimeter to the following:
 
 X: 41.667
+
 Y: 43.448
+
 Z: Any, not used
+
 (Measured with a ruler, possibly off by half a millimeter)
 
 Enabling microstepping:
