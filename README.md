@@ -102,6 +102,7 @@ Connect & Set up (first time onely)
 
 Open UGS, connect the device using setup wizard.
 On the calibration screen of setup wizard, set steps per millimeter
+
 X: 41.667
 Y: 43.448
 Z: Any, not used
